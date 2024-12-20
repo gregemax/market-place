@@ -32,6 +32,7 @@ export class User {
 
   @Prop({ type: [Types.ObjectId], ref: 'Store', default: [] })
   storeIds: Types.ObjectId[];
+
   @Prop({ type: Types.ObjectId, ref: 'Cart' })
   cart: Types.ObjectId;
 
