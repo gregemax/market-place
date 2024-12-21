@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { store, storeDocument } from './entities/store.entity';
@@ -12,23 +16,29 @@ export class StoreService {
   constructor(
     @InjectModel(store.name) private storeModel: Model<storeDocument>,
     private userser: UsersService,
-    @InjectModel('users') private usermodule: Model<UserDocument>
+    @InjectModel('users') private usermodule: Model<UserDocument>,
   ) {}
 
   async create(storeData: CreateStoreDto, userid) {
     try {
       storeData['user'] = userid;
-
+      const storeex = await this.storeModel.find({ user: userid });
+    
+      if (storeex.length > 0) {
+        throw new UnauthorizedException('you already have a store');
+      }
       const role = await this.userser.role(userid, 'store_owner');
 
       console.log(storeData, role);
 
       const store = await this.storeModel.create(storeData);
 
-      const {_id} = store
+      const { _id } = store;
 
-
-      const updateuser = await this.userser.addStoreToUser(userid.toString(), _id.toString());
+      const updateuser = await this.userser.addStoreToUser(
+        userid.toString(),
+        _id.toString(),
+      );
       return store;
     } catch (error) {
       throw new BadRequestException(error.message);
@@ -56,21 +66,24 @@ export class StoreService {
   async findByOwner(userId: string): Promise<store[]> {
     return this.storeModel.find({ user: userId }).exec();
   }
-  async addproductTostore(storeId: string, productId: string): Promise<store | null> {
+  async addproductTostore(
+    storeId: string,
+    productId: string,
+  ): Promise<store | null> {
     return this.storeModel
       .findByIdAndUpdate(
         storeId,
-        { $push: { products: productId } }, 
+        { $push: { products: productId } },
         { new: true },
       )
-      .populate('products') 
+      .populate('products')
       .exec();
   }
 
-  async upload(user,url){
+  async upload(user, url) {
     const storeid = await this.userser.findOne(
-      user.payload.payload._id.toString()
-    ); 
+      user.payload.payload._id.toString(),
+    );
     return await this.update(storeid.storeIds.toString(), {
       store_picture: url,
     });
