@@ -13,30 +13,33 @@ import { UploadModule } from './upload/upload.module';
 import { OrderModule } from './order/order.module';
 import { CartItemModule } from './cart-item/cart-item.module';
 import { OrderItemsModule } from './order-items/order-items.module';
-
+import multer from 'multer';
 @Module({
-  imports: [UsersModule, AuthModule,  ConfigModule.forRoot({
-    isGlobal: true, 
-  }),
-
-  MongooseModule.forRootAsync({
-    imports: [ConfigModule],
-    useFactory: async (configService: ConfigService) => ({
-      uri: configService.get<string>('DATABASE_URI'),
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
+  imports: [
+    UsersModule,
+    AuthModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
-    inject: [ConfigService],
-  }),
-  StoreModule,
-  ProductModule,
-  CartModule,
-  UploadModule,
-  OrderModule,
-  CartItemModule,
-  OrderItemsModule,],
+
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('DATABASE_URI'),
+        // useNewUrlParser: true,
+        // useUnifiedTopology: true,
+      }),
+      inject: [ConfigService],
+    }),
+    StoreModule,
+    ProductModule,
+    CartModule,
+    UploadModule,
+    OrderModule,
+    CartItemModule,
+    OrderItemsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
-
 })
 export class AppModule {}

@@ -31,7 +31,8 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('no user found');
     }
-    return user;
+   // console.log(user)
+    return await user;
   }
   async findemail(email: string) {
     const user = await this.usermodule.findOne({ email });
@@ -69,17 +70,13 @@ export class UsersService {
       throw new NotFoundException('no user found');
     }
     user.role = role;
-    return await user.save({validateBeforeSave:false})
+    return await user.save({ validateBeforeSave: false });
   }
 
   async addStoreToUser(userId: string, storeId: string): Promise<User | null> {
     return this.usermodule
-      .findByIdAndUpdate(
-        userId,
-        { $push: { storeIds: storeId } }, // Add storeId to storeIds array
-        { new: true },
-      )
-      .populate('storeIds') // Populate updated storeIds
+      .findByIdAndUpdate(userId, { storeIds: storeId }, { new: true })
+      .populate('storeIds')
       .exec();
   }
 }

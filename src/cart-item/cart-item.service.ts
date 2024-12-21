@@ -17,6 +17,9 @@ export class CartItemService {
     if (!product) {
       throw new NotFoundException('Product not found');
     }
+    if (!product.numberOfStemStore||product.numberOfStemStore<0) {
+      throw new NotFoundException('Product not found');
+    }
 
     const price = product.price;
 
@@ -27,7 +30,7 @@ export class CartItemService {
       price,
     });
 
-   return await cartItem._id.toString()
+   return await cartItem
   }
 
   findAll() {

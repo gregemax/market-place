@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document,Schema as MongooseSchema } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 
 export type storeDocument = store & Document;
 
@@ -7,7 +7,6 @@ export type storeDocument = store & Document;
 export class store {
   @Prop({ required: true })
   name: string;
-
 
   @Prop()
   description?: string;
@@ -18,12 +17,11 @@ export class store {
   @Prop({ required: true })
   address: string;
 
-  @Prop({ default:[] })
-  products: string[]; 
+  @Prop({ default: [] })
+  products: string[];
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'user', required: false })
   user: MongooseSchema.Types.ObjectId;
- 
 }
 
 export const storeSchema = SchemaFactory.createForClass(store);

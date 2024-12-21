@@ -5,12 +5,14 @@ import { store, storeDocument } from './entities/store.entity';
 import { CreateStoreDto } from './dto/create-store.dto';
 import { UsersService } from 'src/users/users.service';
 import { UpdateStoreDto } from './dto/update-store.dto';
+import { UserDocument } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class StoreService {
   constructor(
     @InjectModel(store.name) private storeModel: Model<storeDocument>,
     private userser: UsersService,
+    @InjectModel('users') private usermodule: Model<UserDocument>
   ) {}
 
   async create(storeData: CreateStoreDto, userid) {
@@ -52,7 +54,7 @@ export class StoreService {
   }
 
   async findByOwner(userId: string): Promise<store[]> {
-    return this.storeModel.find({ ownerId: userId }).exec();
+    return this.storeModel.find({ user: userId }).exec();
   }
   async addproductTostore(storeId: string, productId: string): Promise<store | null> {
     return this.storeModel
@@ -63,5 +65,14 @@ export class StoreService {
       )
       .populate('products') 
       .exec();
+  }
+
+  async upload(user,url){
+    const storeid = await this.userser.findOne(
+      user.payload.payload._id.toString()
+    ); 
+    return await this.update(storeid.storeIds.toString(), {
+      store_picture: url,
+    });
   }
 }

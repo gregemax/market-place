@@ -16,11 +16,13 @@ export class ProductService {
 
   async create(productData: CreateProductDto, req): Promise<Product> {
     try {
-      const store = await this.storeser.findById(productData.storeId);
-
+      const store = await this.userser.findOne(
+        req.user.payload.payload._id.toString(),
+      );
+      productData['storeId'] = store.storeIds;
       const product = await this.productModel.create(productData);
       const addproductTostore = await this.storeser.addproductTostore(
-        productData.storeId.toString(),
+        store.storeIds.toString(),
         (await product)._id.toString(),
       );
       return product;

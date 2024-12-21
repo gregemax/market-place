@@ -7,25 +7,25 @@ export type OrderDocument = Order & Document;
 @Schema({ timestamps: true })
 export class Order {
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
-  user: Types.ObjectId; // Reference to the User
+  user: Types.ObjectId; 
 
-  @Prop({ type: Types.ObjectId, ref: 'Store', required: true })
-  store: Types.ObjectId; // Reference to the Store from which the order was placed
+  // @Prop({ type: Types.ObjectId, ref: 'Store', required: true })
+  // store: Types.ObjectId; 
 
   @Prop({ type: [{ type: Types.ObjectId, ref: 'OrderItem' }], default: [] })
-  items: Types.ObjectId[]; // Array of OrderItems
+  items: Types.ObjectId[]; 
 
   @Prop({ default: 'pending' })
-  status: string; // Order status: 'pending', 'completed', etc.
+  status: string; 
 
   @Prop({ required: true })
-  totalAmount: number; // Total amount for the order
+  totalAmount: number; 
 
   @Prop({ required: true })
-  shippingAddress: string; // Shipping address for the order
+  shippingAddress: string; 
 
   @Prop({ default: Date.now })
-  placedAt: Date; // Date when the order was placed
+  placedAt: Date; 
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
