@@ -1,4 +1,4 @@
-import { IsInt, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsInt, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateProductDto {
   @IsString()
@@ -12,7 +12,8 @@ export class CreateProductDto {
   price: number;
 
   @IsOptional()
-  image?: string;
+  @IsArray()
+  image?: [string];
 
   @IsNumber()
   numberOfStemStore: number;

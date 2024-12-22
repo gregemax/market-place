@@ -36,7 +36,7 @@ export class ProductController {
    }
    if (file) {
     const url = await this.uploadService.uploadImage(file);
-    productData.image=url
+    productData.image.push(url)
   }
     return await this.productService.create(productData, req);
   }
@@ -44,6 +44,11 @@ export class ProductController {
   @Get()
   findAll() {
     return this.productService.findAll();
+  }
+  @Get("find/cat/product")
+  findcat(@Query()cat) {
+    const {category} =cat
+    return this.productService.findbycat(category);
   }
 
   @Get(':id')
