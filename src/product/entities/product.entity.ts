@@ -3,14 +3,11 @@ import { Document, Types } from 'mongoose';
 
 export type ProductDocument = Product & Document;
 export enum ProductCategory {
-  ELECTRONICS = 'Electronics',
-  FASHION = 'Fashion',
-  HOME = 'Home',
-  BEAUTY = 'Beauty',
-  TOYS = 'Toys',
-  SPORTS = 'Sports',
-  AUTOMOTIVE = 'Automotive',
-  BOOKS = 'Books',
+  HORSES = 'horses',
+  VETENARY = 'vetenary',
+  TRAINING = 'training',
+  STUD = 'stud',
+  LUXURYBOARDING='luxuryBoarding'
 }
 
 @Schema({ timestamps: true })
