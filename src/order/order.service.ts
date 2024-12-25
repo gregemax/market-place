@@ -69,7 +69,7 @@ export class OrderService {
   //   }
   // }
   async createOrder(
-    userId: string,
+    //userId: string,
     orderItemsData: { product: string; quantity: number; price: number }[],
     shippingAddress: string,
     contactInfo: { phone: string; email?: string },
@@ -79,7 +79,7 @@ export class OrderService {
         throw new Error('Order items are required to create an order');
       }
 
-      // Create and save each OrderItem
+      
       const orderItems = await Promise.all(
         orderItemsData.map(async (itemData) => {
           const orderItem = new this.orderItemModel({
@@ -91,15 +91,15 @@ export class OrderService {
         }),
       );
 
-      // Calculate the total amount
+      
       const totalAmount = orderItems.reduce(
         (total, item) => total + item.price * item.quantity,
         0,
       );
 
-      // Create an Order
+     
       const order = new this.orderModel({
-        user: userId,
+       // user: userId,
         items: orderItems.map((item) => item._id),
         totalAmount,
         shippingAddress,
@@ -147,5 +147,9 @@ export class OrderService {
       throw new NotFoundException('no user found to delete');
     }
     return user;
+  }
+
+  async findByuser(user: string): Promise<Order[]> {
+    return this.orderModel.find({user}).populate("items").exec();
   }
 }

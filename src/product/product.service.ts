@@ -32,10 +32,15 @@ export class ProductService {
   }
 
   async findAll(search?: string): Promise<Product[]> {
-    const filter = search
+    const filter = search?.trim() // Check if search is defined and not empty
       ? { name: { $regex: search, $options: 'i' } } // Case-insensitive search by name
       : {};
-    return this.productModel.find(filter).sort({ createdAt: -1 }).populate('storeId').exec();
+  
+    return this.productModel
+      .find(filter)
+      .sort({ createdAt: -1 }) // Sort by creation date in descending order
+      .populate('storeId') // Populate the storeId field
+      .exec();
   }
   
   async findbycat(category): Promise<Product[]> {

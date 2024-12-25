@@ -14,15 +14,15 @@ import {
 export class OrderItemDTO {
   @IsString()
   @IsNotEmpty()
-  product: string; // Product ID or reference
+  product: string;
 
   @IsNumber()
   @Min(1)
-  quantity: number; // Number of items ordered
-
+  quantity: number;
+  
   @IsNumber()
   @Min(0)
-  price: number; // Price per unit
+  price: number;
 }
 
 export class ContactInfoDTO {
@@ -35,20 +35,19 @@ export class ContactInfoDTO {
 }
 
 export class CreateOrderDTO {
-  @IsString()
-  @IsNotEmpty()
-  userId: string; // ID of the user placing the order
-
+  // @IsString()
+  // @IsNotEmpty()
+  // userId: string;
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => OrderItemDTO)
-  orderItems: OrderItemDTO[]; // Array of order items
+  orderItems: OrderItemDTO[];
 
   @IsString()
   @IsNotEmpty()
-  shippingAddress: string; // Shipping address for the order
+  shippingAddress: string;
 
   @ValidateNested()
   @Type(() => ContactInfoDTO)
-  contactInfo: ContactInfoDTO; // Contact details for the user
+  contactInfo: ContactInfoDTO;
 }
