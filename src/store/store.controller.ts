@@ -57,11 +57,11 @@ export class StoreController {
   delete(@Param('id') id: string) {
     return this.storeService.delete(id);
   }
-  @Get('findownerId')
+  @Get('find/ownerId')
   findByOwner(@Query('ownerId') ownerId: string) {
     return this.storeService.findByOwner(ownerId);
   }
-  @Post('uploadProfile/greg')
+  @Post('uploadProfile/store')
   @UseGuards(Guard)
   @UseInterceptors(FileInterceptor('file'))
   async uploadprofile(

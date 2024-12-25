@@ -66,7 +66,7 @@ export class ProductController {
     return this.productService.delete(id);
   }
   @Get()
-  findByStore(@Query('storeId') storeId: string) {
+  findByStore(@Query('find/storeId') storeId: string) {
     return this.productService.findByStore(storeId);
   }
 }

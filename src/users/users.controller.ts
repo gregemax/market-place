@@ -51,7 +51,7 @@ export class UsersController {
     return await this.usersService.remove(id);
   }
 
-  @Post('uploadProfile/greg')
+  @Post('uploadProfile/user')
   @UseGuards(Guard)
   @UseInterceptors(FileInterceptor('file'))
   async uploadprofile(

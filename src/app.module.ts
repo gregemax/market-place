@@ -13,6 +13,11 @@ import { UploadModule } from './upload/upload.module';
 import { OrderModule } from './order/order.module';
 import { CartItemModule } from './cart-item/cart-item.module';
 import { OrderItemsModule } from './order-items/order-items.module';
+import { FormsModule } from './forms/forms.module';
+import { BoardingModule } from './services/boarding/boarding.module';
+import { RegistreationModule } from './services/registreation/registreation.module';
+import { TrainingModule } from './services/training/training.module';
+import { VeterinaryModule } from './services/veterinary/veterinary.module';
 import multer from 'multer';
 @Module({
   imports: [
@@ -38,6 +43,11 @@ import multer from 'multer';
     OrderModule,
     CartItemModule,
     OrderItemsModule,
+    FormsModule,
+    BoardingModule,
+    RegistreationModule,
+    TrainingModule,
+    VeterinaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
