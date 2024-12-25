@@ -37,6 +37,8 @@ export class Product {
     unique:false
   })
   category: ProductCategory;
+
+  
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

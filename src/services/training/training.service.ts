@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { training, trainingDocument } from "./entities/training.entity";
 import { Model } from "mongoose";
@@ -15,7 +15,7 @@ export class TrainingService {
     try {
       return await this.trainingModel.create(createTrainingDto);
     } catch (error) {
-      throw new Error(`Failed to create training: ${error.message}`);
+      throw new BadRequestException(`Failed to create training: ${error.message}`);
     }
   }
 
@@ -23,7 +23,7 @@ export class TrainingService {
     try {
       return await this.trainingModel.find().sort({ createdAt: -1 });
     } catch (error) {
-      throw new Error(`Failed to fetch trainings: ${error.message}`);
+      throw new BadRequestException(`Failed to fetch trainings: ${error.message}`);
     }
   }
 
@@ -38,7 +38,7 @@ export class TrainingService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to fetch training: ${error.message}`);
+      throw new BadRequestException(`Failed to fetch training: ${error.message}`);
     }
   }
 
@@ -57,7 +57,7 @@ export class TrainingService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to update training: ${error.message}`);
+      throw new BadRequestException(`Failed to update training: ${error.message}`);
     }
   }
 
@@ -72,7 +72,7 @@ export class TrainingService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to delete training: ${error.message}`);
+      throw new BadRequestException(`Failed to delete training: ${error.message}`);
     }
   }
 }

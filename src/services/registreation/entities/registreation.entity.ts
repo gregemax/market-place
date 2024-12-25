@@ -10,6 +10,7 @@ export type RegistreationDocument = Registreation & Document;
 export class Registreation {
   @Prop({ required: true })
   OwnerName: string;
+  
   @Prop({ required: true })
   HorseName: string;
 

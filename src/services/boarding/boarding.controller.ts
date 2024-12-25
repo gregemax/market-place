@@ -19,16 +19,16 @@ export class BoardingController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.boardingService.findOne(+id);
+    return this.boardingService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBoardingDto: UpdateBoardingDto) {
-    return this.boardingService.update(+id, updateBoardingDto);
+    return this.boardingService.update(id, updateBoardingDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.boardingService.remove(+id);
+    return this.boardingService.remove(id);
   }
 }

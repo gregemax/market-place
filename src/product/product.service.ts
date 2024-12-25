@@ -31,9 +31,13 @@ export class ProductService {
     }
   }
 
-  async findAll(): Promise<Product[]> {
-    return this.productModel.find().populate('storeId').exec();
+  async findAll(search?: string): Promise<Product[]> {
+    const filter = search
+      ? { name: { $regex: search, $options: 'i' } } // Case-insensitive search by name
+      : {};
+    return this.productModel.find(filter).sort({ createdAt: -1 }).populate('storeId').exec();
   }
+  
   async findbycat(category): Promise<Product[]> {
     return this.productModel.find({category}).populate('storeId').exec();
   }

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateVeterinaryDto } from './dto/create-veterinary.dto';
 import { UpdateVeterinaryDto } from './dto/update-veterinary.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -15,7 +15,7 @@ export class VeterinaryService {
     try {
       return await this.veterinaryModel.create(createVeterinaryDto);
     } catch (error) {
-      throw new Error(`Failed to create veterinary: ${error.message}`);
+      throw new BadRequestException(`Failed to create veterinary: ${error.message}`);
     }
   }
 
@@ -23,7 +23,7 @@ export class VeterinaryService {
     try {
       return await this.veterinaryModel.find().sort({ createdAt: -1 });
     } catch (error) {
-      throw new Error(`Failed to fetch veterinaries: ${error.message}`);
+      throw new BadRequestException(`Failed to fetch veterinaries: ${error.message}`);
     }
   }
 
@@ -38,7 +38,7 @@ export class VeterinaryService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to fetch veterinary: ${error.message}`);
+      throw new BadRequestException(`Failed to fetch veterinary: ${error.message}`);
     }
   }
 
@@ -57,7 +57,7 @@ export class VeterinaryService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to update veterinary: ${error.message}`);
+      throw new BadRequestException(`Failed to update veterinary: ${error.message}`);
     }
   }
 
@@ -72,7 +72,7 @@ export class VeterinaryService {
       if (error instanceof NotFoundException) {
         throw error;
       }
-      throw new Error(`Failed to delete veterinary: ${error.message}`);
+      throw new BadRequestException(`Failed to delete veterinary: ${error.message}`);
     }
   }
 }

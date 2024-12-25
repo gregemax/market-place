@@ -42,8 +42,9 @@ export class ProductController {
   }
 
   @Get()
-  findAll() {
-    return this.productService.findAll();
+  findAll(@Query()ser) {
+   const  {search}=ser
+    return this.productService.findAll(search);
   }
   @Get("find/cat/product")
   findcat(@Query()cat) {
