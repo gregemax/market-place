@@ -31,11 +31,11 @@ export class StoreController {
   ) {}
 
   @Post()
-  @UseGuards(Guard)
-  create(@Body() storeData: CreateStoreDto, @Request() res) {
-    const { user } = res;
-    console.log(user);
-    return this.storeService.create(storeData, user.payload.payload._id);
+  //@UseGuards(Guard)
+  create(@Body() storeData: CreateStoreDto) {
+  
+    
+    return this.storeService.create(storeData);
   }
 
   @Get()

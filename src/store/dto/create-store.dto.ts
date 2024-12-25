@@ -17,4 +17,7 @@ export class CreateStoreDto {
 
   @IsOptional()
   products: string[];
+
+  @IsString()
+  user:string
 }

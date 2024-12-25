@@ -22,7 +22,7 @@ export class User {
   password: string;
   @Prop({
     enum: UserRole,
-    default: UserRole.Guest,
+    default: UserRole.StoreOwner,
     unique: false,
   })
   role: string;

@@ -19,17 +19,17 @@ export class StoreService {
     @InjectModel('users') private usermodule: Model<UserDocument>,
   ) {}
 
-  async create(storeData: CreateStoreDto, userid) {
+  async create(storeData: CreateStoreDto) {
     try {
-      storeData['user'] = userid;
+      const userid = storeData.user;
       const storeex = await this.storeModel.find({ user: userid });
-    
+
       if (storeex.length > 0) {
         throw new UnauthorizedException('you already have a store');
       }
-      const role = await this.userser.role(userid, 'store_owner');
+      // const role = await this.userser.role(userid, 'store_owner');
 
-      console.log(storeData, role);
+      // console.log(storeData, role);
 
       const store = await this.storeModel.create(storeData);
 
@@ -64,7 +64,7 @@ export class StoreService {
   }
 
   async findByOwner(userId: string): Promise<store[]> {
-    return this.storeModel.find({ user: userId }).exec();
+    return this.storeModel.find({ user: userId }).populate('products').exec();
   }
   async addproductTostore(
     storeId: string,
