@@ -27,42 +27,87 @@ export class OrderService {
     @InjectModel(CartItem.name) private cartItemModel: Model<CartItemDocument>,
   ) {}
 
-  async createOrder(userId: string, shippingAddress: string): Promise<Order> {
-    try {
-      // Fetch the user's cart
-      const cart = await this.cartService.findCartByUserId(userId);
+  // async createOrder(userId: string, shippingAddress: string): Promise<Order> {
+  //   try {
+  //     // Fetch the user's cart
+  //    // const cart = await this.cartService.findCartByUserId(userId);
 
-      if (!cart || cart.items.length === 0) {
-        throw new Error('Cart is empty');
+  //     // if (!cart || cart.items.length === 0) {
+  //     //   throw new Error('Cart is empty');
+  //     // }
+
+  //     const orderItems = await Promise.all(
+  //       cart.items.map(async (cartItemId) => {
+  //         const cartItem = await this.cartItemModel.findById(cartItemId);
+  //         const orderItem = new this.orderItemModel({
+  //           product: cartItem.product,
+  //           quantity: cartItem.quantity,
+  //           price: cartItem.price,
+  //         });
+  //         return orderItem.save();
+  //       }),
+  //     );
+
+  //     const totalAmount = orderItems.reduce(
+  //       (total, item) => total + item.price * item.quantity,
+  //       0,
+  //     );
+
+  //     // Create an Order
+  //     const order = new this.orderModel({
+  //       user: userId,
+  //       store: cart.items[0].store, // Assuming store is stored in CartItem
+  //       items: orderItems.map((item) => item._id),
+  //       totalAmount,
+  //       shippingAddress,
+  //       status: 'pending',
+  //     });
+
+  //     return await order.save();
+  //   } catch (error) {
+  //     throw new BadRequestException(error.message);
+  //   }
+  // }
+  async createOrder(
+    userId: string,
+    orderItemsData: { product: string; quantity: number; price: number }[],
+    shippingAddress: string,
+    contactInfo: { phone: string; email?: string },
+  ): Promise<Order> {
+    try {
+      if (!orderItemsData || orderItemsData.length === 0) {
+        throw new Error('Order items are required to create an order');
       }
 
+      // Create and save each OrderItem
       const orderItems = await Promise.all(
-        cart.items.map(async (cartItemId) => {
-          const cartItem = await this.cartItemModel.findById(cartItemId);
+        orderItemsData.map(async (itemData) => {
           const orderItem = new this.orderItemModel({
-            product: cartItem.product,
-            quantity: cartItem.quantity,
-            price: cartItem.price,
+            product: itemData.product,
+            quantity: itemData.quantity,
+            price: itemData.price,
           });
           return orderItem.save();
         }),
       );
 
+      // Calculate the total amount
       const totalAmount = orderItems.reduce(
         (total, item) => total + item.price * item.quantity,
         0,
       );
 
       // Create an Order
-      const order = new this.orderModel({ 
+      const order = new this.orderModel({
         user: userId,
-        store: cart.items[0].store, // Assuming store is stored in CartItem
         items: orderItems.map((item) => item._id),
         totalAmount,
         shippingAddress,
+        contactInfo,
         status: 'pending',
       });
 
+      // Save the Order and return it
       return await order.save();
     } catch (error) {
       throw new BadRequestException(error.message);

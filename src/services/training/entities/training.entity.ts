@@ -22,8 +22,7 @@ export class training {
   @Prop({ required: true })
   email: string;
 
-  @Prop({ required: true })
-  password: string;
+ 
 
   @Prop({enum:Us,unique:false})
   ServiceType: string;

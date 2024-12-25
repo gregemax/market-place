@@ -15,9 +15,6 @@ export class Veterinary {
   @Prop({ required: true })
   email: string;
 
-  @Prop({ required: true })
-  password: string;
-
   @Prop({ default: 'new' })
   status: string; 
 }

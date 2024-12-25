@@ -10,8 +10,6 @@ export class CreateVeterinaryDto {
   @IsEmail()
   email: string;
 
-  @IsString()
-  password: string;
 
   @IsOptional()
   status: string;
