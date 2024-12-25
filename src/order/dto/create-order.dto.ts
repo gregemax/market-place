@@ -19,7 +19,7 @@ export class OrderItemDTO {
   @IsNumber()
   @Min(1)
   quantity: number;
-  
+
   @IsNumber()
   @Min(0)
   price: number;
@@ -35,9 +35,10 @@ export class ContactInfoDTO {
 }
 
 export class CreateOrderDTO {
-  // @IsString()
-  // @IsNotEmpty()
-  // userId: string;
+  @IsOptional()
+  @IsString()
+  userId: string;
+
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => OrderItemDTO)

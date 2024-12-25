@@ -24,10 +24,10 @@ export class OrderController {
     
     // return this.orderService.createOrder(user.payload.payload._id,createOrderDto.shippingAddress);
     return await this.orderService.createOrder(
-      createOrderDto.userId,
       createOrderDto.orderItems,
       createOrderDto.shippingAddress,
       createOrderDto.contactInfo,
+      createOrderDto.userId,
     );
   }
 

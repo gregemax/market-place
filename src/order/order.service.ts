@@ -69,10 +69,10 @@ export class OrderService {
   //   }
   // }
   async createOrder(
-    //userId: string,
     orderItemsData: { product: string; quantity: number; price: number }[],
     shippingAddress: string,
     contactInfo: { phone: string; email?: string },
+    userId?: string
   ): Promise<Order> {
     try {
       if (!orderItemsData || orderItemsData.length === 0) {
@@ -99,7 +99,7 @@ export class OrderService {
 
      
       const order = new this.orderModel({
-       // user: userId,
+        user: userId||null,
         items: orderItems.map((item) => item._id),
         totalAmount,
         shippingAddress,
