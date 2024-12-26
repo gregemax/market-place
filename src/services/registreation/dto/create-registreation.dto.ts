@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateRegistreationDto {
    @IsString()
@@ -14,4 +14,7 @@ export class CreateRegistreationDto {
   
     @IsNumber()
     Age: number;
+
+    @IsOptional()
+    status: string;
 }
