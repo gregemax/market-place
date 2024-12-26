@@ -5,7 +5,11 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 
 export type BoardingDocument = Boarding & Document;
 
-
+export enum status {
+  NEW = 'new',
+  InProgress = 'InProgress',
+  Completed="completed"
+}
 
 @Schema({ timestamps: true })
 export class Boarding {
@@ -23,6 +27,9 @@ export class Boarding {
 
   @Prop({ required: true })
   Age:number
+
+  @Prop({ enum:status,default:status.NEW ,unique:false })
+  status: string; 
 }
 
 export const BoardingSchema = SchemaFactory.createForClass(Boarding);

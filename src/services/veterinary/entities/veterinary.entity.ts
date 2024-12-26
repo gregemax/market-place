@@ -3,6 +3,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 
 export type VeterinaryDocument = Veterinary & Document;
+export enum status {
+  NEW = 'new',
+  InProgress = 'InProgress',
+  Completed="completed"
+}
 
 @Schema({ timestamps: true })
 export class Veterinary {
@@ -15,7 +20,7 @@ export class Veterinary {
   @Prop({ required: true })
   email: string;
 
-  @Prop({ default: 'new' })
+  @Prop({ enum:status,default:status.NEW ,unique:false })
   status: string; 
 }
 

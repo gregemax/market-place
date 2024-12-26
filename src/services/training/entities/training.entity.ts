@@ -8,6 +8,11 @@ export enum Us {
     TrainingProgram= 'Training Program',
     BreedingServices = 'Breeding Services',
 }
+export enum status {
+  NEW = 'new',
+  InProgress = 'InProgress',
+  Completed="completed"
+}
 
 @Schema({ timestamps: true })
 export class training {
@@ -27,7 +32,7 @@ export class training {
   @Prop({enum:Us,unique:false})
   ServiceType: string;
 
-  @Prop({ default: 'new' })
+  @Prop( { enum:status,default:status.NEW ,unique:false })
   status: string;
 }
 

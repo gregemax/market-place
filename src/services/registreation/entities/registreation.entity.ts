@@ -5,7 +5,11 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 export type RegistreationDocument = Registreation & Document;
 
 
-
+export enum status {
+  NEW = 'new',
+  InProgress = 'InProgress',
+  Completed="completed"
+}
 @Schema({ timestamps: true })
 export class Registreation {
   @Prop({ required: true })
@@ -22,6 +26,9 @@ export class Registreation {
 
   @Prop({ required: true })
   Age:number
+
+  @Prop({ enum:status,default:status.NEW ,unique:false })
+  status: string; 
 }
 
 export const RegistreationSchema = SchemaFactory.createForClass(Registreation);
