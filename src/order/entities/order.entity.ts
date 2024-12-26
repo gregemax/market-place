@@ -6,7 +6,7 @@ export type OrderDocument = Order & Document;
 
 @Schema({ timestamps: true })
 export class Order {
-  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  @Prop({ type: Types.ObjectId, ref: 'User', require:false })
   user: Types.ObjectId; 
 
   // @Prop({ type: Types.ObjectId, ref: 'Store', required: true })
