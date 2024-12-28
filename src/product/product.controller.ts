@@ -15,7 +15,7 @@ import {
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product } from './entities/product.entity';
-import { Guard, roleGuard } from 'src/auth/guards/jwt-Guard';
+import { Guard } from 'src/auth/guards/jwt-Guard';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UsersService } from 'src/users/users.service';
 import { FileInterceptor } from '@nestjs/platform-express';

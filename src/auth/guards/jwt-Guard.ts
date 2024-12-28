@@ -11,7 +11,7 @@ export class Guard extends AuthGuard('jwt') {
     return user;
   }
 }
-export class roleGuard extends AuthGuard('jwt') {
+export class adminGuard extends AuthGuard('jwt') {
   handleRequest(err, user, info) {
     if (err || !user) {
       throw err || new UnauthorizedException();

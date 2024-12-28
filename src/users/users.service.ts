@@ -9,14 +9,19 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './entities/user.entity';
 import * as bcryptjs from 'bcryptjs';
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel('users') private usermodule: Model<UserDocument>) {}
+  constructor(@InjectModel('users') private usermodule: Model<UserDocument>,private jwtService:JwtService) {}
   async create(createUserDto: CreateUserDto) {
     try {
       createUserDto.password = await bcryptjs.hash(createUserDto.password, 12);
       const new_user = await this.usermodule.create(createUserDto);
-      return new_user;
+      const token = await this.jwtService.sign({payload:new_user});
+      return {
+        user:new_user,
+        token
+      };
     } catch (error) {
       throw new BadRequestException(error.message);
     }
