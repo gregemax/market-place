@@ -2,7 +2,6 @@ import {
   Controller,
   Get,
   Post,
-  Put,
   Delete,
   Body,
   Param,
@@ -12,6 +11,7 @@ import {
   UnauthorizedException,
   UseInterceptors,
   UploadedFile,
+  Patch,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product } from './entities/product.entity';
@@ -57,7 +57,7 @@ export class ProductController {
     return this.productService.findById(id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   update(@Param('id') id: string, @Body() updateData: Partial<Product>) {
     return this.productService.update(id, updateData);
   }

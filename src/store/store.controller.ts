@@ -2,7 +2,6 @@ import {
   Controller,
   Get,
   Post,
-  Put,
   Delete,
   Body,
   Param,
@@ -12,6 +11,7 @@ import {
   BadRequestException,
   UseInterceptors,
   UploadedFile,
+  Patch,
 } from '@nestjs/common';
 import { StoreService } from './store.service';
 import { store } from './entities/store.entity';
@@ -48,7 +48,7 @@ export class StoreController {
     return this.storeService.findById(id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   update(@Param('id') id: string, @Body() updateData: UpdateStoreDto) {
     return this.storeService.update(id, updateData);
   }
