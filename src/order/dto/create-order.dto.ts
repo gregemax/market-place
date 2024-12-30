@@ -39,10 +39,10 @@ export class CreateOrderDTO {
   @IsString()
   userId: string;
 
-  @IsArray()
+  
   @ValidateNested({ each: true })
   @Type(() => OrderItemDTO)
-  orderItems: OrderItemDTO[];
+  orderItems: OrderItemDTO;
 
   @IsString()
   @IsNotEmpty()

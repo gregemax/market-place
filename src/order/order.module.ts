@@ -12,6 +12,7 @@ import {
 } from 'src/cart-item/entities/cart-item.entity';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CartModule } from 'src/cart/cart.module';
+import { Product, ProductSchema } from 'src/product/entities/product.entity';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CartModule } from 'src/cart/cart.module';
       { name: CartItem.name, schema: CartItemSchema },
       { name: OrderItem.name, schema: OrderItemSchema },
       { name: Order.name, schema: OrderSchema },
+      { name: Product.name, schema: ProductSchema },
     ]),
     CartModule
   ],

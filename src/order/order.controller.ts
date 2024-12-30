@@ -40,6 +40,10 @@ export class OrderController {
   findOne(@Param('id') id: string) {
     return this.orderService.findOne(id);
   }
+  @Get('store/order/:id')
+  findstore(@Param('id') id: string) {
+    return this.orderService.findOrdersByStore(id);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
