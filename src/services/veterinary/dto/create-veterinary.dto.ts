@@ -7,6 +7,7 @@ export class CreateVeterinaryDto {
   @IsString()
   description?: string;
 
+  @IsOptional()
   @IsEmail()
   email: string;
 

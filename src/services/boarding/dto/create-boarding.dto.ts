@@ -22,7 +22,7 @@ export class CreateBoardingDto {
   @IsString()
   phone: string;
 
-  @IsString()
+  @IsOptional()
   email: string;
 
   @IsString()

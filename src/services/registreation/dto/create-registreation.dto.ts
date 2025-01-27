@@ -20,7 +20,8 @@ export class CreateRegistreationDto {
 
   @IsString()
   phone: string;
-  @IsString()
+  
+  @IsOptional()
   email: string;
 
   @IsString()

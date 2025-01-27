@@ -9,6 +9,7 @@ export class CreateTrainingDto {
   @IsString()
   AdditionalInformation?: string;
 
+  @IsOptional()
   @IsString()
   @IsEmail()
   email: string;
@@ -21,7 +22,7 @@ export class CreateTrainingDto {
 
   @IsString()
   phone: string;
-  
+
   @IsString()
   city: string;
 }
