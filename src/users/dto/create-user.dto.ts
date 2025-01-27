@@ -33,4 +33,7 @@ export class CreateUserDto {
 
   @IsOptional()
   profile: string;
+  
+  @IsString()
+  BusinessName: string;
 }
