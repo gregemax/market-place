@@ -10,7 +10,12 @@ export class CreateVeterinaryDto {
   @IsEmail()
   email: string;
 
-
   @IsOptional()
   status: string;
+
+  @IsString()
+  phone: string;
+
+  @IsString()
+  city: string;
 }

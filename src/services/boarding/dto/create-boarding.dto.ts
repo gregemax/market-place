@@ -15,7 +15,16 @@ export class CreateBoardingDto {
 
   @IsNumber()
   Age: number;
-  
+
   @IsOptional()
   status: string;
+
+  @IsString()
+  phone: string;
+
+  @IsString()
+  email: string;
+
+  @IsString()
+  city: string;
 }

@@ -22,6 +22,12 @@ export class Veterinary {
 
   @Prop({ enum:status,default:status.NEW ,unique:false })
   status: string; 
+
+  @Prop({ required: true })
+  phone: string;
+  
+  @Prop({ required: false })
+  city: string;
 }
 
 export const VeterinarySchema = SchemaFactory.createForClass(Veterinary);

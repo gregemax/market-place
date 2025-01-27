@@ -13,13 +13,26 @@ export class User {
   firstName: string;
 
   @Prop({ required: true })
-  lastName: string;
-
-  @Prop({ required: true, unique: true })
-  email: string;
+  BusinessName: string;
 
   @Prop({ required: true })
-  password: string;
+  city: string;
+
+
+  @Prop({ required: false })
+  experience: string;
+
+  @Prop({ required: true })
+  service_offered: string;
+
+  @Prop({ required: true })
+  lastName: string;
+
+  @Prop({ required: false, unique: true })
+  email: string;
+
+  // @Prop({ required: true })
+  // password: string;
   @Prop({
     enum: UserRole,
     default: UserRole.StoreOwner,
@@ -38,6 +51,9 @@ export class User {
 
   @Prop({ type: Types.ObjectId, ref: 'Cart' })
   cart: Types.ObjectId;
+
+  
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

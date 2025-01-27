@@ -13,7 +13,7 @@ export class AuthService {
   async login(loginAuthDto: loginAuthDto) {
     const { email, password } = loginAuthDto;
     const user = await this.userservices.findemail(email);
-    const verifypassword = await bcryptjs.compare(password, user.password);
+    //const verifypassword = await bcryptjs.compare(password, user.password);
     const token = await this.jwtService.sign({payload:user});
     return {
       user,

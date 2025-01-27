@@ -15,7 +15,7 @@ export class UsersService {
   constructor(@InjectModel('users') private usermodule: Model<UserDocument>,private jwtService:JwtService) {}
   async create(createUserDto: CreateUserDto) {
     try {
-      createUserDto.password = await bcryptjs.hash(createUserDto.password, 12);
+      //createUserDto.password = await bcryptjs.hash(createUserDto.password, 12);
       const new_user = await this.usermodule.create(createUserDto);
       const token = await this.jwtService.sign({payload:new_user});
       return {

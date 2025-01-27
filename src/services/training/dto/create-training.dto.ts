@@ -13,11 +13,15 @@ export class CreateTrainingDto {
   @IsEmail()
   email: string;
 
-
-
   @IsString()
   ServiceType: string;
 
   @IsOptional()
   status: string;
+
+  @IsString()
+  phone: string;
+  
+  @IsString()
+  city: string;
 }

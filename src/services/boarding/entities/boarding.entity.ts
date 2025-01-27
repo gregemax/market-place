@@ -17,6 +17,14 @@ export class Boarding {
   OwnerName: string;
   
   @Prop({ required: true })
+  phone: string;
+  @Prop({ required: false })
+  email: string;
+  
+  @Prop({ required: false })
+  city: string;
+  
+  @Prop({ required: true })
   HorseName: string;
 
   @Prop()
@@ -30,6 +38,8 @@ export class Boarding {
 
   @Prop({ enum:status,default:status.NEW ,unique:false })
   status: string; 
+
+
 }
 
 export const BoardingSchema = SchemaFactory.createForClass(Boarding);
